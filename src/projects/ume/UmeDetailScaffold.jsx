@@ -17,7 +17,7 @@ const PANELS = [
     figures: [
       {
         src: umeCaseDesignThinkingSrc,
-        alt: "UME 协同软件改版：设计思路长图",
+        alt: "UME 企业办公协同软件：设计思路长图",
       },
     ],
   },
@@ -26,7 +26,7 @@ const PANELS = [
     figures: [
       {
         src: umeCaseRequirementsSrc,
-        alt: "UME 协同软件改版：需求分析拆解长图",
+        alt: "UME 企业办公协同软件：需求分析拆解长图",
       },
     ],
   },
@@ -35,7 +35,7 @@ const PANELS = [
     figures: [
       {
         src: umeCaseKeyScreensSrc,
-        alt: "UME 协同软件改版：关键界面长图",
+        alt: "UME 企业办公协同软件：关键界面长图",
       },
     ],
   },

@@ -12,7 +12,12 @@ import AigcDetailScaffold from "./projects/aigc-team/AigcDetailScaffold.jsx";
 import SmartBuildingDetailScaffold from "./projects/smart-building/SmartBuildingDetailScaffold.jsx";
 import UmeDetailScaffold from "./projects/ume/UmeDetailScaffold.jsx";
 
-const TAB_CASE_PROJECT_IDS = new Set(["aigc-team", "ume", "smart-building"]);
+const TAB_CASE_PROJECT_IDS = new Set([
+  "agentable",
+  "aigc-team",
+  "ume",
+  "smart-building",
+]);
 
 const HIDE_PREVIEW_PROJECT_IDS = new Set(["android-terminal"]);
 
@@ -53,12 +58,15 @@ const projectMeta = {
     figureAlt: "Agentable AI 协作平台：案例长图",
   },
   ume: {
-    title: "UME 协同软件改版",
-    summary: "从聊天工具升级到协同办公平台，重构核心工作流。",
-    role: "交互设计师（项目leader）",
-    cycle: "2023.08 - 2023.10",
+    title: "UME 企业办公协同软件",
+    summary:
+      "面向业务扩展需求，推动产品由聊天工具升级为企业协同办公平台，重构多端协作体验与产品定位。",
+    role: "交互设计负责人（PC 桌面端 & 移动端）",
+    cycle: "2019.03 - 2021.03",
     team: "交互1 · 视觉2 · 研发5+",
-    figureAlt: "UME 协同软件改版：案例长图",
+    overview:
+      "自主发起并主导改版专项，统筹调研、目标拆解、交互框架设计与方案落地。基于竞品研究、用户访谈与问卷沉淀 100+ 体验问题并完成优先级分层；围绕沟通、检索、会议预约、视频会议与平台扩展性输出多套方案，推动内外部评审达成一致；搭建可扩展信息架构，梳理近 300 个需求点，打通核心流程与多端体验闭环。新版上线后用户反馈与可用性感知显著提升，更贴合 UC 生态扩展并打通硬件产品线；会议模块专项落地「人像聚焦」策略，减少会中信息干扰，提升沉浸式沟通体验。",
+    figureAlt: "UME 企业办公协同软件：案例长图",
   },
   "smart-building": {
     title: "智慧大楼梯控访客系统",
@@ -83,15 +91,15 @@ const projectMeta = {
     figureAlt: "会议场景硬件终端：关键界面长图",
   },
   "aigc-team": {
-    title: "AIGC 平台与腾讯体验合作",
+    title: "AI图像生成平台与腾讯体验合作",
     summary:
-      "建设公司内部 AIGC 生图平台的体验治理机制；并长期为腾讯相关业务提供体验设计服务，保障多项目并行下的协作与交付质量，同时参与平台部分核心功能设计。",
+      "建设公司内部 AI图像生成平台的体验治理机制；并长期为腾讯相关业务提供体验设计服务，保障多项目并行下的协作与交付质量，同时参与平台部分核心功能设计。",
     role: "高级交互设计师",
     cycle: "2024.03 - 2025.03",
     team: "交互 · 视觉 · 跨职能协作（产品 / 研发等）",
     overview:
-      "并行负责两条业务线：一是公司内部 AIGC 生图平台，建立体验治理规范与跨团队协作机制，并参与部分核心功能的交互设计；二是与腾讯团队的长期体验设计合作，覆盖需求梳理、走查评估与方案交付，支撑多项目并行下的稳定产出。",
-    figureAlt: "AIGC 平台与腾讯体验合作：案例长图",
+      "并行负责两条业务线：一是公司内部 AI图像生成平台，建立体验治理规范与跨团队协作机制，并参与部分核心功能的交互设计；二是与腾讯团队的长期体验设计合作，覆盖需求梳理、走查评估与方案交付，支撑多项目并行下的稳定产出。",
+    figureAlt: "AI图像生成平台与腾讯体验合作：案例长图",
   },
 };
 
