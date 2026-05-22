@@ -6,9 +6,11 @@ import App from './App.jsx'
 import ProjectDetail from './ProjectDetail.jsx'
 import TeamContributionDetail from './TeamContributionDetail.jsx'
 
+const routerBasename = import.meta.env.BASE_URL.replace(/\/$/, '') || undefined
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={routerBasename}>
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/projects/:projectId" element={<ProjectDetail />} />
