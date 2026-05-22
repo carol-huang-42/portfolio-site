@@ -1,118 +1,135 @@
-# 国内托管部署指南（Gitee Pages）
+# 国内托管部署指南（EdgeOne Pages）
 
-Vercel（`*.vercel.app`）在国内常无法访问。推荐用 **Gitee Pages** 作为给招聘官的主链接，国内打开更稳定。
+Vercel（`*.vercel.app`）在国内常无法访问。**Gitee Pages 已下线**，菜单里不再有该服务。
 
----
-
-## 一、注册 Gitee 并创建仓库
-
-1. 打开 [https://gitee.com](https://gitee.com) 注册并登录（建议实名认证，Pages 更稳定）。
-2. 右上角 **+** → **新建仓库**。
-3. 仓库名填 **`portfolio-site`**（与脚本默认路径一致）。
-4. 选 **私有** 或 **公开** 均可 → **创建**。
+推荐用 **腾讯 EdgeOne Pages** 作为给招聘官的主链接，国内访问更稳定。
 
 ---
 
-## 二、把代码同步到 Gitee（只需做一次）
+## 一、本地构建（先做这步，不必注册）
 
-在 Mac 终端执行（把 `你的Gitee用户名` 换成真实用户名）：
+在终端执行：
 
 ```bash
 cd /Users/dadaizhi/Documents/UX/portfolio-site
 
-git remote add gitee https://gitee.com/你的Gitee用户名/portfolio-site.git
-
-git push gitee main
+npm run build:edgeone
 ```
 
-若提示 `remote gitee already exists`，改用：
+会在项目里生成 **`dist/`** 文件夹（内含 `index.html`、`assets/`、`projects/` 等）。
+
+若提示 `npm: command not found`，先执行：
 
 ```bash
-git push gitee main
+export PATH="$HOME/.workbuddy/binaries/node/versions/22.12.0/bin:$PATH"
 ```
+
+再运行 `npm run build:edgeone`。
 
 ---
 
-## 三、构建并部署到 Gitee Pages
+## 二、从 GitHub 导入（推荐，不用浏览器传 100MB）
+
+### 1. 先把代码推到 GitHub
 
 ```bash
 cd /Users/dadaizhi/Documents/UX/portfolio-site
-
-chmod +x scripts/deploy-gitee-pages.sh
-
-GITEE_REMOTE=https://gitee.com/你的Gitee用户名/portfolio-site.git ./scripts/deploy-gitee-pages.sh
+git add package.json DEPLOY-CN.md public/projects/aigc-team/*.png scripts/deploy-gitee-pages.sh
+git commit -m "EdgeOne 部署：压缩大图、统一 build 脚本"
+git push origin main
 ```
 
-脚本会：
+（不要 `git add` 任何 `.zip` 文件。）
 
-- 按子路径 `/portfolio-site/` 构建（适配 Gitee 默认网址）
-- 生成 `pages` 分支并推送静态文件
+### 2. EdgeOne 连接 GitHub
+
+1. 打开 [EdgeOne Pages 控制台](https://console.tencentcloud.com/edgeone/pages)
+2. **创建项目** → **导入 Git 仓库**
+3. 点 **GitHub** → 授权 → 选仓库 **`carol-huang-42/portfolio-site`**
+4. 构建配置：
+
+| 项 | 填写 |
+|----|------|
+| 生产分支 | `main` |
+| 框架 | Vite（自动识别即可） |
+| 构建命令 | `npm run build` |
+| 输出目录 | `dist` |
+| Node 版本 | 20（或 18） |
+| 加速区域 | 中国大陆可用区 |
+
+5. 点 **开始部署**，等构建日志显示成功
+6. 在项目里点 **预览**，复制访问链接
+
+以后改代码：`git push` 到 `main` 会自动重新部署。
 
 ---
 
-## 四、开启 Gitee Pages
+## 三、直接上传 dist（备选，易超时）
 
-1. 打开 Gitee 仓库 → 左侧 **服务** → **Gitee Pages**。
-2. 分支选择 **`pages`**，目录选择 **`/`**（根目录）。
-3. 点击 **启动** / **更新**。
-4. 等待 1～2 分钟，获得访问地址，一般为：
+### 注册并上传（要写进简历必须注册）
 
-   **`https://你的Gitee用户名.gitee.io/portfolio-site/`**
+1. 打开 [https://pages.edgeone.ai/zh](https://pages.edgeone.ai/zh)
+2. **未注册**也可先拖放上传试看，但链接约 **1 小时** 后失效。
+3. 用 **手机号 / 微信** 注册并登录（免费）→ 上传后的链接可**长期保留**。
+4. 把 **`dist` 文件夹里的所有内容**拖进页面上传区（拖整个 `dist` 里的文件，不是拖 `dist` 文件夹本身）。
+5. 等待部署完成，复制给你的地址，形如：
+
+   **`https://xxxx.edgeone.app`**
 
 这就是可发给国内面试官的链接。
 
 ---
 
-## 五、以后更新网站
+## 三、以后更新作品集
 
-改完本地内容后：
+改完代码后重复：
 
 ```bash
 cd /Users/dadaizhi/Documents/UX/portfolio-site
-git add .
-git commit -m "更新内容"
-git push          # 同步源码到 GitHub（可选）
-git push gitee main   # 同步源码到 Gitee（可选）
-
-GITEE_REMOTE=https://gitee.com/你的Gitee用户名/portfolio-site.git ./scripts/deploy-gitee-pages.sh
+npm run build:edgeone
 ```
 
-然后在 Gitee → **Gitee Pages** 点 **更新**（若未自动刷新）。
+再到 EdgeOne 控制台 **重新上传** `dist` 里的文件（或按平台提示「更新部署」）。
+
+源码仍可同步到 GitHub / Gitee 做备份：
+
+```bash
+git add .
+git commit -m "更新内容"
+git push
+```
 
 ---
 
-## 六、双线路建议（简历怎么写）
+## 四、双线路建议（简历怎么写）
 
 | 用途 | 链接 |
 |------|------|
-| 国内面试官（主） | `https://你的用户名.gitee.io/portfolio-site/` |
+| 国内面试官（主） | EdgeOne 给的 `https://xxxx.edgeone.app` |
 | 海外 / 备用 | `https://portfolio-site-tau-topaz.vercel.app` |
 
 简历可写：
 
-> 作品集（国内）：https://xxx.gitee.io/portfolio-site/
+> 作品集：https://xxxx.edgeone.app
 
 ---
 
-## 七、绑定自己的域名（可选）
+## 五、绑定自己的域名（可选）
 
-若已有域名并做 CNAME 解析，可把 `vite` 的 base 改为根路径：
-
-```bash
-VITE_BASE_PATH=/ npm run build:cn
-```
-
-再按 Gitee Pages 文档绑定自定义域名。`.cn` 域名通常需 **ICP 备案**。
+在 EdgeOne 控制台按提示添加自定义域名。`.cn` 等域名在国内通常需 **ICP 备案**；EdgeOne 默认子域名一般**无需备案**。
 
 ---
 
-## 八、常见问题
+## 六、常见问题
+
+**Q：必须先注册才能上传吗？**  
+可以先上传试看；要**长期链接写进简历**，需要注册登录。
 
 **Q：打开是空白页？**  
-确认访问地址末尾有路径 `/portfolio-site/`，且 Pages 分支为 `pages`、目录为 `/`。
+确认上传的是 `npm run build:edgeone` 生成的 `dist` 内容，且用的是根路径构建（不要用 `/portfolio-site/` 的 Gitee 旧构建）。
 
 **Q：刷新子页面 404？**  
-部署脚本已复制 `404.html`，重新运行 `./scripts/deploy-gitee-pages.sh` 后再更新 Pages。
+`build:edgeone` 已包含 `404.html` 复制，重新构建并上传即可。
 
-**Q：Gitee Pages 要收费吗？**  
-个人仓库一般有免费 Pages 额度，以 Gitee 当前政策为准。
+**Q：Gitee 还能用吗？**  
+可作代码备份；**Gitee Pages 已无法发布网站**。

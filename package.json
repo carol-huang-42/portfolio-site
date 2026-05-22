@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && cp dist/index.html dist/404.html",
     "build:cn": "vite build && cp dist/index.html dist/404.html",
+    "build:edgeone": "vite build && cp dist/index.html dist/404.html",
     "build:gitee": "VITE_BASE_PATH=/portfolio-site/ vite build && cp dist/index.html dist/404.html",
     "lint": "eslint .",
     "preview": "vite preview"

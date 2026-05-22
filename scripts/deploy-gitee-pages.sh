@@ -7,6 +7,16 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
+# 部分环境只有 ~/bin/node 符号链接，npm 在同目录但未加入 PATH
+if ! command -v npm >/dev/null 2>&1 && command -v node >/dev/null 2>&1; then
+  NODE_BIN_DIR="$(node -e "console.log(require('path').dirname(process.execPath))")"
+  export PATH="${NODE_BIN_DIR}:${PATH}"
+fi
+if ! command -v npm >/dev/null 2>&1; then
+  echo "错误：找不到 npm。请安装 Node.js，或将 npm 所在目录加入 PATH 后重试。"
+  exit 1
+fi
+
 GITEE_BASE="${GITEE_BASE:-/portfolio-site/}"
 GITEE_REMOTE="${GITEE_REMOTE:-}"
 PAGES_BRANCH="${PAGES_BRANCH:-pages}"
